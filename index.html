@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoDutch • PSA</title>
+    <meta property="og:title" content="GoDutch • PSA">
+    <meta property="og:description" content="Powerful & Fair Bill Splitting Calculator">
+    <meta property="og:image" content="https://iili.io/K6fPIDu.png">
+    <meta property="og:url" content="https://godutch.tiiny.site">
+    <link rel="shortcut icon" href="https://iili.io/K6fPIDu.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F2F3F4;
+            min-height: 100vh;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 2px solid #1a1a1a;
+        }
+
+        .header {
+            background: #1a1a1a;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 3px solid #2d2d2d;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            color: #a0a0a0;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .content {
+            padding: 30px;
+            background: #ffffff;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .section h2 {
+            color: #1a1a1a;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 14px 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background: #fafafa;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        button {
+            padding: 14px 24px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        button:hover {
+            background: #000000;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .remove-btn {
+            background: #ff4444;
+            padding: 6px 12px;
+            font-size: 12px;
+            min-width: auto;
+        }
+
+        .remove-btn:hover {
+            background: #cc0000;
+        }
+
+        .people-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .person-tag {
+            background: #fafafa;
+            border: 2px solid #e5e5e5;
+            padding: 14px 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .person-tag:hover {
+            border-color: #1a1a1a;
+        }
+
+        .person-info {
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .person-amount {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .checkbox-group {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+            border: 2px solid #e5e5e5;
+        }
+
+        .checkbox-group p {
+            color: #1a1a1a;
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .checkbox-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .checkbox-label:hover {
+            background: #ffffff;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #1a1a1a;
+        }
+
+        .checkbox-label span {
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            background: #ffffff;
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .totals {
+            background: #1a1a1a;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 24px;
+        }
+
+        .totals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .total-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .total-label {
+            color: #a0a0a0;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .total-value {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .positive {
+            color: #4caf50;
+        }
+
+        .negative {
+            color: #ff4444;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                margin-bottom: 30px;
+                padding-bottom: 30px;
+            }
+
+            .people-list {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-container {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+
+            .totals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .total-value {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .section-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .section h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GoDutch</h1>
+            <div class="header-subtitle">• Designed & Developed by Parth Agarwal •</div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🧑</div>
+                    <h2>Add People</h2>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="personName" placeholder="Enter Name">
+                    <input type="number" id="personPaid" placeholder="Amount Paid (Post Discount)" step="0.01" min="0">
+                    <button onclick="addPerson()">ADD PERSON</button>
+                </div>
+                <div class="people-list" id="peopleList"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🛒</div>
+                    <h2>Items & Shares</h2>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="itemName" placeholder="Item Name">
+                    <input type="number" id="itemCost" placeholder="Item Cost (As Is)" step="0.01" min="0">
+                    <button onclick="showShareSelection()">ADD ITEM</button>
+                </div>
+                <div class="checkbox-group" id="shareSelection" style="display: none;">
+                    <p>SELECT WHO SHARES THIS ITEM:</p>
+                    <div class="checkbox-container" id="shareCheckboxes"></div>
+                    <button onclick="addItem()">CONFIRM ITEM</button>
+                </div>
+                <table id="itemsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Cost</th>
+                            <th>Shared By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsBody"></tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🧮</div>
+                    <h2>Summary</h2>
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <div class="empty-state-text">Add people and items to see the summary</div>
+                </div>
+                <table id="summaryTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Item Share</th>
+                            <th>Share Total</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryBody"></tbody>
+                </table>
+                <div class="totals" id="totals" style="display: none;">
+                    <div class="totals-grid" id="totalsGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let people = [];
+        let items = [];
+
+        function addPerson() {
+            const name = document.getElementById('personName').value.trim();
+            const paid = parseFloat(document.getElementById('personPaid').value) || 0;
+
+            if (!name) {
+                alert('Please enter a name');
+                return;
+            }
+
+            people.push({ name, paid });
+            document.getElementById('personName').value = '';
+            document.getElementById('personPaid').value = '';
+
+            renderPeople();
+            calculateSummary();
+        }
+
+        function removePerson(index) {
+            people.splice(index, 1);
+            renderPeople();
+            calculateSummary();
+        }
+
+        function renderPeople() {
+            const list = document.getElementById('peopleList');
+            if (people.length === 0) {
+                list.innerHTML = '';
+                return;
+            }
+            list.innerHTML = people.map((p, i) =>
+                `<div class="person-tag">
+                    <div>
+                        <div class="person-info">${p.name}</div>
+                        <div class="person-amount">Paid: ₹${p.paid.toFixed(2)}</div>
+                    </div>
+                    <button class="remove-btn" onclick="removePerson(${i})">×</button>
+                </div>`
+            ).join('');
+        }
+
+        function showShareSelection() {
+            const itemName = document.getElementById('itemName').value.trim();
+            const itemCost = parseFloat(document.getElementById('itemCost').value);
+
+            if (!itemName || !itemCost) {
+                alert('Please enter item name and cost');
+                return;
+            }
+
+            if (people.length === 0) {
+                alert('Please add people first');
+                return;
+            }
+
+            const checkboxDiv = document.getElementById('shareCheckboxes');
+            checkboxDiv.innerHTML = people.map((p, i) =>
+                `<label class="checkbox-label">
+                    <input type="checkbox" id="share-${i}" value="${i}">
+                    <span>${p.name}</span>
+                </label>`
+            ).join('');
+
+            document.getElementById('shareSelection').style.display = 'block';
+        }
+
+        function addItem() {
+            const itemName = document.getElementById('itemName').value.trim();
+            const itemCost = parseFloat(document.getElementById('itemCost').value);
+
+            const shares = [];
+            people.forEach((p, i) => {
+                const checkbox = document.getElementById(`share-${i}`);
+                if (checkbox && checkbox.checked) {
+                    shares.push(i);
+                }
+            });
+
+            if (shares.length === 0) {
+                alert('Please select at least one person');
+                return;
+            }
+
+            items.push({ name: itemName, cost: itemCost, shares });
+
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemCost').value = '';
+            document.getElementById('shareSelection').style.display = 'none';
+
+            renderItems();
+            calculateSummary();
+        }
+
+        function removeItem(index) {
+            items.splice(index, 1);
+            renderItems();
+            calculateSummary();
+        }
+
+        function renderItems() {
+            const table = document.getElementById('itemsTable');
+            const tbody = document.getElementById('itemsBody');
+
+            if (items.length === 0) {
+                table.style.display = 'none';
+                return;
+            }
+
+            table.style.display = 'table';
+            tbody.innerHTML = items.map((item, i) => {
+                const sharedBy = item.shares.map(idx => people[idx].name).join(', ');
+                return `<tr>
+                    <td><strong>${item.name}</strong></td>
+                    <td>₹${item.cost.toFixed(2)}</td>
+                    <td>${sharedBy}</td>
+                    <td><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></td>
+                </tr>`;
+            }).join('');
+        }
+
+        function calculateSummary() {
+            const emptyState = document.getElementById('emptyState');
+            const summaryTable = document.getElementById('summaryTable');
+            const totalsDiv = document.getElementById('totals');
+
+            if (people.length === 0 || items.length === 0) {
+                emptyState.style.display = 'block';
+                summaryTable.style.display = 'none';
+                totalsDiv.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            const totalItemCost = items.reduce((sum, item) => sum + item.cost, 0);
+            const totalPaid = people.reduce((sum, p) => sum + p.paid, 0);
+
+            const summary = people.map((person, idx) => {
+                let itemShare = 0;
+                items.forEach(item => {
+                    if (item.shares.includes(idx)) {
+                        itemShare += item.cost / item.shares.length;
+                    }
+                });
+
+                const shareTotal = totalItemCost > 0 ? (itemShare / totalItemCost) * totalPaid : 0;
+                const balance = person.paid - shareTotal;
+
+                return {
+                    name: person.name,
+                    itemShare,
+                    paid: person.paid,
+                    shareTotal,
+                    balance
+                };
+            });
+
+            const summaryBody = document.getElementById('summaryBody');
+            summaryTable.style.display = 'table';
+            summaryBody.innerHTML = summary.map(s => `
+                <tr>
+                    <td><strong>${s.name}</strong></td>
+                    <td>₹${s.itemShare.toFixed(2)}</td>
+                    <td>₹${s.shareTotal.toFixed(2)}</td>
+                    <td class="${s.balance >= 0 ? 'positive' : 'negative'}">
+                        <strong>${s.balance >= 0 ? '+' : ''}₹${s.balance.toFixed(2)}</strong>
+                    </td>
+                </tr>
+            `).join('');
+
+            const difference = totalPaid - totalItemCost;
+            const discount = totalItemCost > 0 ? (difference / totalItemCost * 100) : 0;
+
+            totalsDiv.style.display = 'block';
+            document.getElementById('totalsGrid').innerHTML = `
+                <div class="total-item">
+                    <div class="total-label">Total Items Cost</div>
+                    <div class="total-value">₹${totalItemCost.toFixed(2)}</div>
+                </div>
+                <div class="total-item">
+                    <div class="total-label">Total Paid</div>
+                    <div class="total-value">₹${totalPaid.toFixed(2)}</div>
+                </div>
+                <div class="total-item">
+                    <div class="total-label">Difference</div>
+                    <div class="total-value ${difference >= 0 ? 'positive' : 'negative'}">₹${difference.toFixed(2)}</div>
+                </div>
+                <div class="total-item">
+                    <div class="total-label">Net Discount</div>
+                    <div class="total-value ${discount >= 0 ? 'negative' : 'positive'}">${discount.toFixed(2) * -1}%</div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
